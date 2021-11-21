@@ -28,12 +28,13 @@ export default class ImagesApiService {
         this.page -= 1;
     }
     
-    // get query () {
+  
+
+}
+  // get query () {
     //     return this.searchQuery;
     // }
 
     // set query (newQuery) {
     //     this.searchQuery = newQuery;
     // }
-
-}
