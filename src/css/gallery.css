@@ -68,7 +68,8 @@
     margin-top: 0;
     margin-bottom: 0;
     letter-spacing: 0.1em;
-    color: rgb(145, 83, 182);
+    color: #b73690;
+    /* color: #b73690; */
   }
 
   .nums {
@@ -79,14 +80,14 @@
   .btn {
     display: flex;
     justify-content: center;
-    /* padding: 8px; */
-    margin-top: 24px;
-    margin-bottom: 24px;
+    padding: 24px;
+    /* margin-top: 24px;
+    margin-bottom: 24px; */
   }
 
   .load-more {
       color: #ffffff;
-      background-color: rgb(145, 83, 182);
+      background-color: #b73690;
       width: 130px;
       height: 40px;
   }

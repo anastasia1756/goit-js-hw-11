@@ -8,9 +8,9 @@ const refs = {
     searchForm: document.querySelector('.search-form'),
     imagesContainer: document.querySelector('.gallery'),
     loadMoreBtn: document.querySelector('.load-more'),
+    body: document.querySelector('body'),
 }
 const imagesApiService = new ImagesApiService();
-let gallery = new SimpleLightbox('.gallery a');
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
@@ -32,15 +32,13 @@ const hitsLength = good.data.hits.length;
         return;
     }
     else {
+      refs.body.style.background = "#ffffff"
     Notify.success(`Hooray! We found ${totalHits} images.`);
     clearImagesContainer();
     
     imagesApiService.resetPage();
     imagesApiService.fetchImages().then(renderPosts);
-    gallery.on('show.simplelightbox', function () {
-    	// do something…
-    });
-    gallery.refresh();
+    
     
     
     
@@ -58,9 +56,7 @@ const hitsLength = good.data.hits.length;
 ;
 
 async function onLoadMore() {
-    gallery.on('show.simplelightbox', function () {
-    	// do something…
-    });
+    
     if (imagesApiService.page  !== 2) {
         imagesApiService.decrementPage();
     };
@@ -81,6 +77,7 @@ async function onLoadMore() {
     top: cardHeight * 2 + 180,
     behavior: 'smooth',
   });
+
 }
 
 function renderPosts(getImg) {
@@ -109,7 +106,9 @@ function renderPosts(getImg) {
           })
           .join("");
           refs.imagesContainer.insertAdjacentHTML('beforeend', markup);
-         
+          let gallery = new SimpleLightbox('.gallery a');
+          gallery.refresh();
+          showBtnLoadMore();
     }
     
 function clearImagesContainer() {
