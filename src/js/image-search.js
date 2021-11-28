@@ -18,7 +18,8 @@ refs.loadMoreBtn.addEventListener('click', onLoadMore);
 async function onSearch(e) {
     e.preventDefault();
     imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
-
+    imagesApiService.resetPage();
+    
 const good = await imagesApiService.fetchImages();
 const totalHits = good.data.totalHits;  
 const hitsLength = good.data.hits.length;  
@@ -37,7 +38,7 @@ const hitsLength = good.data.hits.length;
     clearImagesContainer();
     
     imagesApiService.resetPage();
-    imagesApiService.fetchImages().then(renderPosts);
+    renderPosts(good);
     
     
     
@@ -57,12 +58,20 @@ const hitsLength = good.data.hits.length;
 
 async function onLoadMore() {
     
-    if (imagesApiService.page  !== 2) {
-        imagesApiService.decrementPage();
-    };
+    // if (imagesApiService.page  !== 2) {
+    //     imagesApiService.decrementPage();
+    // };
+    if (imagesApiService.page  === 1) {
+      imagesApiService.incrementPage();
+  };
+//   if (imagesApiService.page  > 2) {
+//     imagesApiService.decrementPage();
+// };
     
-    imagesApiService.fetchImages().then(renderPosts);
-    const good = await imagesApiService.fetchImages(); 
+    // imagesApiService.fetchImages().then(renderPosts);
+    const good = await imagesApiService.fetchImages();
+    
+    renderPosts(good) 
     const hitsLength = good.data.hits.length;  
     if (hitsLength < 40) {
         hideBtnLoadMore();
@@ -74,7 +83,7 @@ async function onLoadMore() {
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: cardHeight * 2 + 180,
+    top: cardHeight * 2 + 50,
     behavior: 'smooth',
   });
 
